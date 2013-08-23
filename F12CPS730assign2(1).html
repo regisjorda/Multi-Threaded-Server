@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <!-- saved from url=(0049)http://monster.scs.ryerson.ca/cps840/assignment2/ -->
+    <title>Assignment 2: Multi-threaded Webserver</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="MSHTML 6.00.2900.2963" name="GENERATOR">
+  </head>
+  <body>
+    <div style="text-align: center;"><big><big><span style="font-weight:
+            bold;">Assignment 2:</span>&nbsp; Multi-threaded Webserver <br>
+          (Due Date before the lab of Oct 3 - 5 marks)&nbsp;</big></big></div>
+    <br>
+    <br>
+    A key feature that is lacked by the webserver created in Assignment
+    1, is the ability to serve multiple requests simultaneously. In this
+    assignment, you are to modify the single threaded web server created
+    in the first assignment into a multi threaded web server.<br>
+    <br>
+    The function of the web server will remain the same for individual
+    connections, but this will allow multiple connections to be made and
+    served simultaneously.<br>
+    <br>
+    The configuration file, <a href="myhttpd2.conf">myhttpd2.conf,</a>
+    will be changed to include the buffer length for incoming
+    connections (QUEUE) , as well as the maximum number of connections
+    to serve simultaneously (POOL) that defines the number of threads to
+    create.<br>
+    <br>
+    Multiple threads can be created using the function pthread_create().
+    For use of this, consult the manual pages. Type "man pthread_create"
+    at the command line.<br>
+    <br>
+    One of the problems with pthread_create() or any multiprogramming
+    environment, is&nbsp; race condition, and you must prevent it. This
+    race condition can easily be prevented with semaphores. You
+    can&nbsp; use of <a href="globsem.h">globsem.h</a> to&nbsp; provide
+    mutual exclusion by using semaphores. For example if you use thread
+    for multiprogramming , before a thread accesses a shared variable,
+    it checks the semaphore for permission and it waits until permission
+    is given. When a permission to proceed is provided, semaphore
+    restricts access to the shared resource . Once access to the shared
+    variable is complete, the semaphore is set to allow other threads
+    access that.<br>
+    <br>
+    To use the functions given in <a href="globsem.h">globsem.h</a>,
+    you must first create a global semaphore variable;<br>
+    &nbsp;&nbsp;&nbsp; int sem;<br>
+    Then you must create a semaphore;<br>
+    &nbsp;&nbsp;&nbsp; sem = createSem();<br>
+    When you want to access a shared variable use ;<br>
+    &nbsp;&nbsp;&nbsp; down(sem);<br>
+    When you&nbsp; finish working with the shared variable use;<br>
+    &nbsp;&nbsp;&nbsp; up(sem);<br>
+    Hint:&nbsp; Be sure to eliminate any global variables you have from
+    assignment 1 that should not be accessible to all threads.<br>
+    <br>
+    Create a web page as about a sample course that you want to teach as
+    described in the class. This web page simple shows the title of each
+    section of the course and assignments or quizzes required for each
+    section that will be updated later similar to this <a
+      href="CourseWebpage.html">sample of course page</a>. Post this
+    course page into your server and show it with any browser of your
+    choice to the TA during the lab.&nbsp; <br>
+    <br>
+    <span style="font-weight: bold;">&nbsp;Submission</span>: The
+    completed program (source code, not executable and your designed
+    course page) must be emailed to cps730@scs.ryerson.ca from your
+    ryerson email address before the lab, Oct. 3.&nbsp; Please use
+    "CPS730 assignment2" as the subject of your email. Then at the lab ,
+    you will demonstrate your server program functionality to TA/s.<br>
+    <br>
+    <br>
+    <br>
+  </body>
+</html>

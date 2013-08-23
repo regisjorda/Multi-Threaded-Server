@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <!-- saved from url=(0049)http://monster.scs.ryerson.ca/cps840/assignment1/ -->
+    <title>Assignment 1: Single Threaded Webserver</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="MSHTML 6.00.2900.2963" name="GENERATOR">
+  </head>
+  <body>
+    <div style="text-align: center;"><big><big><span style="font-weight:
+            bold;">Assignment 1:</span>&nbsp; Single Threaded Webserver<br>
+          Due Date: Before the Lab hours in the lab days of Sept. 19
+          &amp; 26 <br>
+          10 marks<br>
+        </big></big></div>
+    <br>
+    <br>
+    In this assignment you are going to create a functional single
+    threaded web server in the programming or scripting language of your
+    choice (C or C++ recommended as you can then use the skeleton
+    program linked to the bottom of this document). Your program will be
+    capable of serving web pages to a browser such as Firefox, and
+    compliant with HTTP/1.0 as defined by <a
+      href="http://www.faqs.org/rfcs/rfc1945.html">RFC 1945</a>.<br>
+    <br>
+    In this web server you must implement GET, HEAD, and POST methods of
+    HTTP, and also your program must support text/plain and text/html
+    content types. For POST, creation of a file on the server will
+    suffice.<br>
+    <br>
+    The following response codes must be implemented by your server
+    program:<br>
+    &nbsp;&nbsp;&nbsp; - 200 (OK),<br>
+    &nbsp;&nbsp;&nbsp; - 201 (File created successfully - POST),<br>
+    &nbsp;&nbsp;&nbsp; - 400 (bad requests such as no leading / on path,
+    HTTP/2.0+, no Content-Length for POST),<br>
+    &nbsp;&nbsp;&nbsp; - 403 (no read permissions),<br>
+    &nbsp;&nbsp;&nbsp; - 404 (file does not exist),<br>
+    &nbsp;&nbsp;&nbsp; - 501 (not implemented - ie not GET, HEAD, or
+    POST methods that implemented in your program).<br>
+    <br>
+    This web server will take a configuration file, <a
+      href="myhttpd.conf">myhttpd.conf</a>, of the following format:<br>
+    &nbsp;&nbsp;&nbsp; HTTP1.0 [root]<br>
+    &nbsp;&nbsp;&nbsp; HTML html htm<br>
+    where root is the document root, for example /var/www/html is the
+    default directory for Apache on Linux. The other line defines file
+    extensions for the file type of HTML which will be used in the
+    server response.<br>
+    <br>
+    Your server program requires following Command-line arguments.<br>
+    &nbsp;&nbsp;&nbsp; -p [port]<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; specify port number to listen
+    on<br>
+    &nbsp;&nbsp;&nbsp; -d<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; print additional debugging
+    information. Not specifically required, but this may be used to
+    demonstrate PARTIAL functionality in the event that the server is
+    not entirely functional.<br>
+    <br>
+    <br>
+    <span style="font-weight: bold;">Additional Information:</span><br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Servers</span>:
+    Your program should be runnable on any of <span style="font-style:
+      italic;"></span><span style="font-style: italic;"></span>the&nbsp;<span
+      style="font-style: italic;"> </span>linux<span style="font-style:
+      italic;"> </span>nodes <span style="font-style: italic;"></span>
+    which are given by <span style="font-style: italic;">moon.scs.ryerson.ca
+
+    </span>department of computer science linux servers.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Ports</span>:
+    if you are testing this system on a shared server such as <span
+      style="font-style: italic;">leda</span>, be aware that particular
+    ports may be unavailable (either in use by other users, or blocked
+    by the system administrator). On a Linux server, only ports ABOVE
+    60000 may be used by normal users, those up to and including 59999
+    are reserved. The maximum port number is 65535.<br>
+    &nbsp;&nbsp;&nbsp; IMPORTANT: For testing, use port number 6xxxx,
+    where xxxx are the last 4 digits of your student number. If the last
+    4 digits are 5536 or greater, subtract 5000.<br>
+    &nbsp;&nbsp;&nbsp; IMPORTANT: REMEMBER TO KILL YOUR PROCESS TO CLOSE
+    YOUR PORT WHEN YOU ARE FINISHED WITH IT!!!<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Testing</span>:
+    the telnet command is very useful for testing your web server. Try
+    connecting to any web server, such as redhat.com by issuing this<br>
+    command;<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; telnet www.redhat.com 80<br>
+    &nbsp;&nbsp;&nbsp; where 80 is the port number (standard for web
+    servers). When you have connected, try issuing a simple GET
+    command,as the following;<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; GET / HTTP/1.0 . For example:
+    &nbsp; GET /index.htm HTTP/1.0&nbsp; requesting index.htm <br>
+    &nbsp;&nbsp;&nbsp; For HEAD, the format is almost identical (HEAD
+    /indexi.htm HTTP/1.0) , except it uses HEAD keyword instead of GET.
+    POST is slightly more complicated because the header must include
+    the length of the data being sent. For that reason you should add
+    Content-Length header as the following for POST :<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; POST /filename HTTP/1.0<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Content-Length:
+    decimal-size-in-bytes<br>
+    &nbsp;&nbsp;&nbsp; note: follow the header that is shown above,
+    press Enter TWICE to inform the server that it has received the
+    entire header. For a POST, after the header, press Enter twice, then
+    input the same number of bytes (text) to be sent as specified in the
+    header, then press Enter again to send.<br>
+    <br>
+    You can begin working with this <a href="myhttpd.c">skeleton
+      program</a>.<br>
+    What you must add to this program is the ability to process the
+    specified command-line arguments, the configuration file, and
+    methods to process and serve the client requests.<br>
+    &nbsp;&nbsp; <br>
+    &nbsp;&nbsp; <span style="font-weight: bold;">Submission:</span>
+    The completed programs (source code, not executable) must be emailed
+    to cps730@scs.ryerson.ca&nbsp; from your ryerson email address
+    before your lab hours in Wednesdays of Sept. 19 and Sept. 26 for the
+    parts that are mentioned in the marking form for assignment 1.&nbsp;
+    Please use "CPS730 assignment1" as the subject of your email. Then
+    at the lab , you will demonstrate your server program functionality,
+    and TA will mark your assignment according to the marking form and
+    marking schema posted on the course web page.<br>
+    &nbsp;&nbsp; <br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Hint:</span>&nbsp;&nbsp;
+
+
+    <span style="font-weight: bold;"><span style="font-weight: bold;"></span></span>Test&nbsp;
+your
+
+
+    server and client programs on one available host&nbsp; for
+    simplicity (for example: leda). Make sure you have already wrote the
+    host IP address in your program and complied version of your server
+    knows the host IP address otherwise you will get "bind: Cannot
+    assign requested address" error. &nbsp; &nbsp; <span
+      style="font-style: italic;"></span><span style="font-style:
+      italic;"></span>
+  </body>
+</html>
